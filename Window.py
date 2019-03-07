@@ -187,19 +187,23 @@ class GUI:
 
 
     def getData(self):
-        self.enl1_data = float(self.enl1.get())
-        self.enl2_data = float(self.enl2.get())
-        self.enl3_data = float(self.enl3.get())
-        self.enl4_data = float(self.enl4.get())
-        self.enl5_data = float(self.enl5.get())
-        self.enl6_data = float(self.enl6.get())
-        self.enl7_data = float(self.enl7.get())
-        self.enl8_data = float(self.enl8.get())
-        self.enl9_data = float(self.enl9.get())
-        self.enl10_data = float(self.enl10.get())
-        self.d1_data = float(self.d1.get())
-        self.d2_data = float(self.d2.get())
-        self.d3_data = float(self.d3.get())
+        try:
+                self.enl1_data = float(self.enl1.get())
+                self.enl2_data = float(self.enl2.get())
+                self.enl3_data = float(self.enl3.get())
+                self.enl4_data = float(self.enl4.get())
+                self.enl5_data = float(self.enl5.get())
+                self.enl6_data = float(self.enl6.get())
+                self.enl7_data = float(self.enl7.get())
+                self.enl8_data = float(self.enl8.get())
+                self.enl9_data = float(self.enl9.get())
+                self.enl10_data = float(self.enl10.get())
+                self.d1_data = float(self.d1.get())
+                self.d2_data = float(self.d2.get())
+                self.d3_data = float(self.d3.get())
+        except ValueError:
+                tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\n Dane musza być liczbami")
+                return None
 
         # tup = self.retData()
         # print(tup)
