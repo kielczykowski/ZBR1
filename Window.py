@@ -8,6 +8,7 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import axes3d
 import matplotlib.pyplot as plt
 from tkinter.ttk import*
+import numpy as np
 
 class GUI:
     calulate = 0
@@ -92,21 +93,21 @@ class GUI:
 
         self.inld1 = tk.Label(text="delta1")
         self.inld1.grid(in_=mainwindow,row=11, column=0, sticky="e")
-        self.d1 = Combobox(master)
+        self.d1 = Combobox(master,state='readonly')
         self.d1['values']=(1,-1)
         self.d1.current(1)
         self.d1.grid(in_=mainwindow, row=11, column=1)
 
         self.inld2 = tk.Label(text="delta2")
         self.inld2.grid(in_=mainwindow,row=12, column=0, sticky="e")
-        self.d2 = Combobox(master)
+        self.d2 = Combobox(master,state='readonly')
         self.d2['values']=(1,-1)
         self.d2.current(1)
         self.d2.grid(in_=mainwindow, row=12, column=1,padx=5)
 
-        self.inld3 = tk.Label(text="delta1")
+        self.inld3 = tk.Label(text="delta3")
         self.inld3.grid(in_=mainwindow,row=13, column=0, sticky="e")
-        self.d3 = Combobox(master)
+        self.d3 = Combobox(master,state='readonly')
         self.d3['values']=(1,-1)
         self.d3.current(0)
         self.d3.grid(in_=mainwindow, row=13, column=1)
@@ -179,10 +180,20 @@ class GUI:
 
 
 
-
+    def stringToNumpy(self,string):
+        tmp = string.split(",")
+        #print (tmp)
+        try:
+                matrix = np.array([float(tmp[0]), float(tmp[1]), float(tmp[2])])
+        except ValueError: 
+                tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\nNależy poprawić wprowadzone Dane, tak aby wszystkie składowe były liczbami")
+                return np.array([])
+        
+        #print (matrix)
+        return matrix
 
     def retData(self):
-            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data)
+            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data, self.d1_data, self.d2_data,self.d3_data, self.route1_entry_data, self.route2_entry_data, self.route3_entry_data )
 
 
 
@@ -205,18 +216,20 @@ class GUI:
                 tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\n Dane musza być liczbami")
                 return None
 
-        # tup = self.retData()
-        # print(tup)
-        calculate = 1
-        self.backend.compute(self)
+        try:
+                self.route1_entry_data = self.stringToNumpy(self.route1_entry.get())
+                self.route2_entry_data = self.stringToNumpy(self.route2_entry.get()) 
+                self.route3_entry_data = self.stringToNumpy(self.route3_entry.get()) 
+        except IndexError:
+                tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\nWszystkie wartości współrzędnych wektorowych muszą zostać uzupełnione!")
+                return None
 
-        # tmp = float(self.enl1.get())
-        # print(type(tmp))
-        # print(tmp)
-        # self.fi1.set("meh")
-        # if(isinstance(self.enl1.get(),int)==True):
-        #        # tk.messagebox.showerror("Not valid entry","This is not valid datatype from entry place. Please provide good datatype.")
-        #         print("XD")
+
+        if self.route1_entry_data.size == 0 or self.route2_entry_data.size == 0 or self.route3_entry_data.size == 0:
+                print("NIENOXD")
+                return None    
+
+        self.backend.compute(self)
         pass
 
 
