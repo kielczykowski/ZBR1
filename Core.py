@@ -17,8 +17,10 @@ class Compute:
         self.delta2 = self.raw_data[11]
         self.delta3 = self.raw_data[12]
         self.start_coordinates = self.raw_data[13]
-        self.passage_coordinates = self.raw_data[14]
-        self.end_coordinates = self.raw_data[15]
+        self.passage_coordinates1 = self.raw_data[14]
+        self.passage_coordinates1 = self.raw_data[15]
+        self.passage_coordinates1 = self.raw_data[16]
+        self.end_coordinates = self.raw_data[17]
         #print( self.start_coordinates.size)
         print('raw data')
         print(self.raw_data)

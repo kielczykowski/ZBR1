@@ -146,11 +146,17 @@ class GUI:
         self.route1_label = Label(master,text="Współrzędne punktu startowego")
         self.route1_label.grid(in_=mainwindow,row=7,column=2)
 
-        self.route2_label = Label(master,text="Współrzędne punktu przejścia")
+        self.route2_label = Label(master,text="Współrzędne punktu przejścia1")
         self.route2_label.grid(in_=mainwindow,row=9,column=2)
 
-        self.route3_label = Label(master,text="Współrzędne punktu końcowego")
+        self.route3_label = Label(master,text="Współrzędne punktu przejścia2")
         self.route3_label.grid(in_=mainwindow,row=11,column=2)
+
+        self.route4_label = Label(master,text="Współrzędne punktu przejścia3")
+        self.route4_label.grid(in_=mainwindow,row=13,column=2)
+
+        self.route5_label = Label(master,text="Współrzędne punktu końcowego")
+        self.route5_label.grid(in_=mainwindow,row=15,column=2)
 
         self.route1_entry = tk.Entry(master)
         self.route1_entry.grid(in_=mainwindow, row=8, column=2)
@@ -160,6 +166,12 @@ class GUI:
 
         self.route3_entry = tk.Entry(master)
         self.route3_entry.grid(in_=mainwindow, row=12, column=2)
+
+        self.route4_entry = tk.Entry(master)
+        self.route4_entry.grid(in_=mainwindow, row=14, column=2)
+
+        self.route5_entry = tk.Entry(master)
+        self.route5_entry.grid(in_=mainwindow, row=16, column=2)
 
 
 
@@ -193,7 +205,7 @@ class GUI:
         return matrix
 
     def retData(self):
-            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data, self.d1_data, self.d2_data,self.d3_data, self.route1_entry_data, self.route2_entry_data, self.route3_entry_data )
+            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data, self.d1_data, self.d2_data,self.d3_data, self.route1_entry_data, self.route2_entry_data, self.route3_entry_data, self.route4_entry_data, self.route5_entry_data )
 
 
 
@@ -220,6 +232,8 @@ class GUI:
                 self.route1_entry_data = self.stringToNumpy(self.route1_entry.get())
                 self.route2_entry_data = self.stringToNumpy(self.route2_entry.get()) 
                 self.route3_entry_data = self.stringToNumpy(self.route3_entry.get()) 
+                self.route4_entry_data = self.stringToNumpy(self.route4_entry.get())
+                self.route5_entry_data = self.stringToNumpy(self.route5_entry.get())
         except IndexError:
                 tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\nWszystkie wartości współrzędnych wektorowych muszą zostać uzupełnione!")
                 return None
