@@ -1,4 +1,5 @@
 import Core
+import math
 import tkinter as tk
 import matplotlib
 matplotlib.use("TkAgg")
@@ -16,7 +17,7 @@ class GUI:
     def __init__(self,master):
         self.master = master
         self.master.title("ZASADY BUDOWY ROBOTÓW: Projekt 1")
-        master.geometry("960x620")
+        master.geometry("1000x620")
         master.resizable(False,False)
         self.style= tk.ttk.Style()
         self.style.theme_use("clam")
@@ -37,58 +38,71 @@ class GUI:
         self.run_button.grid(in_=bottom,row=0,column=0,pady=10,padx=10)
         self.name_label=tk.Label(master,text="Michał Kiełczykowski,2018/19")
         self.name_label.place(relx=1.0, rely=1.0, anchor='se')
-############################################ first Data Column
-        self.input_label = tk.Label(text="Input Data:")
+
+
+######################first data collumn#####################
+
+        self.input_label = tk.Label(text="Dane Wejściowe")
         self.input_label.grid(in_=mainwindow,row=0, column=0,pady=10)
 
         self.inl1 = tk.Label(text="l1[m]")
         self.inl1.grid(in_=mainwindow,row=1, column=0, sticky="e")
         self.enl1 = tk.Entry(master)
+        self.enl1.insert(0,'1')
         self.enl1.grid(in_=mainwindow, row=1, column=1)
 
         self.inl2 = tk.Label(text="l2[m]")
         self.inl2.grid(in_=mainwindow,row=2, column=0, sticky="e")
         self.enl2 = tk.Entry(master)
+        self.enl2.insert(0,'1')
         self.enl2.grid(in_=mainwindow, row=2, column=1)
 
         self.inl3 = tk.Label(text="l3[m]")
         self.inl3.grid(in_=mainwindow,row=3, column=0, sticky="e")
         self.enl3 = tk.Entry(master)
+        self.enl3.insert(0,'1')
         self.enl3.grid(in_=mainwindow, row=3, column=1)
 
         self.inl4 = tk.Label(text="l4[m]")
         self.inl4.grid(in_=mainwindow,row=4, column=0, sticky="e")
         self.enl4 = tk.Entry(master)
+        self.enl4.insert(0,'1')
         self.enl4.grid(in_=mainwindow, row=4, column=1)
 
         self.inl5 = tk.Label(text="l5[m]")
         self.inl5.grid(in_=mainwindow,row=5, column=0, sticky="e")
         self.enl5 = tk.Entry(master)
+        self.enl5.insert(0,'1')
         self.enl5.grid(in_=mainwindow, row=5, column=1)
 
         self.inl6 = tk.Label(text="l6[m]")
         self.inl6.grid(in_=mainwindow,row=6, column=0, sticky="e")
         self.enl6 = tk.Entry(master)
+        self.enl6.insert(0,'1')
         self.enl6.grid(in_=mainwindow, row=6, column=1)
 
         self.inl7 = tk.Label(text="d[m]")
         self.inl7.grid(in_=mainwindow,row=7, column=0, sticky="e")
         self.enl7 = tk.Entry(master)
+        self.enl7.insert(0,'1')
         self.enl7.grid(in_=mainwindow, row=7, column=1)
 
         self.inl8 = tk.Label(text="e[m]")
         self.inl8.grid(in_=mainwindow,row=8, column=0, sticky="e")
         self.enl8 = tk.Entry(master)
+        self.enl8.insert(0,'1')
         self.enl8.grid(in_=mainwindow, row=8, column=1)
 
         self.inl9 = tk.Label(text="theta [st]")
         self.inl9.grid(in_=mainwindow,row=9, column=0, sticky="e")
         self.enl9 = tk.Entry(master)
+        self.enl9.insert(0,'1')
         self.enl9.grid(in_=mainwindow, row=9, column=1)
 
         self.inl10 = tk.Label(text="psi [st]")
         self.inl10.grid(in_=mainwindow,row=10, column=0, sticky="e")
         self.enl10 = tk.Entry(master)
+        self.enl10.insert(0,'1')
         self.enl10.grid(in_=mainwindow, row=10, column=1)
 
         self.inld1 = tk.Label(text="delta1")
@@ -112,7 +126,7 @@ class GUI:
         self.d3.current(0)
         self.d3.grid(in_=mainwindow, row=13, column=1)
 
-#########################second column##################################
+######################second data collumn#####################
         self.coordinates_label = Label(master,text="Współrzędne maszynowe")
         self.coordinates_label.grid(in_=mainwindow,row=0,column=2,pady=10)
 
@@ -140,42 +154,47 @@ class GUI:
         self.fi4_label.grid(in_=mainwindow,row=4, column=2)
         self.fi5_label.grid(in_=mainwindow,row=5, column=2)
 
-        self.route_label = Label(master,text="   Parametry toru ruchu\n(Współrzędne Postaci: x,y,z)")
-        self.route_label.grid(in_=mainwindow,row=6,column=2,pady=10)
+        self.route_label = Label(master,text="   Parametry toru ruchu\n(Współrzędne Postaci: 'x,y,z')",)
+        self.route_label.grid(in_=mainwindow,row=6,column=2,pady=10,rowspan=2)
 
         self.route1_label = Label(master,text="Współrzędne punktu startowego")
-        self.route1_label.grid(in_=mainwindow,row=7,column=2)
+        self.route1_label.grid(in_=mainwindow,row=8,column=2)
 
         self.route2_label = Label(master,text="Współrzędne punktu przejścia1")
-        self.route2_label.grid(in_=mainwindow,row=9,column=2)
+        self.route2_label.grid(in_=mainwindow,row=10,column=2)
 
         self.route3_label = Label(master,text="Współrzędne punktu przejścia2")
-        self.route3_label.grid(in_=mainwindow,row=11,column=2)
+        self.route3_label.grid(in_=mainwindow,row=12,column=2)
 
         self.route4_label = Label(master,text="Współrzędne punktu przejścia3")
-        self.route4_label.grid(in_=mainwindow,row=13,column=2)
+        self.route4_label.grid(in_=mainwindow,row=14,column=2)
 
         self.route5_label = Label(master,text="Współrzędne punktu końcowego")
-        self.route5_label.grid(in_=mainwindow,row=15,column=2)
+        self.route5_label.grid(in_=mainwindow,row=16,column=2)
 
         self.route1_entry = tk.Entry(master)
-        self.route1_entry.grid(in_=mainwindow, row=8, column=2)
+        self.route1_entry.insert(0,"1,2,3")
+        self.route1_entry.grid(in_=mainwindow, row=9, column=2)
 
         self.route2_entry = tk.Entry(master)
-        self.route2_entry.grid(in_=mainwindow, row=10, column=2)
+        self.route2_entry.insert(0,"2,2,3")
+        self.route2_entry.grid(in_=mainwindow, row=11, column=2)
 
         self.route3_entry = tk.Entry(master)
-        self.route3_entry.grid(in_=mainwindow, row=12, column=2)
+        self.route3_entry.insert(0,"3,3,3")
+        self.route3_entry.grid(in_=mainwindow, row=13, column=2)
 
         self.route4_entry = tk.Entry(master)
-        self.route4_entry.grid(in_=mainwindow, row=14, column=2)
+        self.route4_entry.insert(0,"3,0,0")
+        self.route4_entry.grid(in_=mainwindow, row=15, column=2)
 
         self.route5_entry = tk.Entry(master)
-        self.route5_entry.grid(in_=mainwindow, row=16, column=2)
+        self.route5_entry.insert(0,"0,0,0")
+        self.route5_entry.grid(in_=mainwindow, row=17, column=2)
 
 
 
-
+#######adding plot to tinkter window#############
 
         f= Figure(figsize=(5,5), dpi=100)
         a = f.add_subplot(111, projection='3d')
@@ -189,7 +208,7 @@ class GUI:
         axes3d.Axes3D.mouse_init(a)
         
 
-
+#########################################
 
 
     def stringToNumpy(self,string):
@@ -240,7 +259,7 @@ class GUI:
 
 
         if self.route1_entry_data.size == 0 or self.route2_entry_data.size == 0 or self.route3_entry_data.size == 0:
-                print("NIENOXD")
+                #print("NIENOXD")
                 return None    
 
         self.backend.compute(self)
