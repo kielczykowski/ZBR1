@@ -79,6 +79,8 @@ class Compute:
 
         self.l = self.l5 + self.l6
         self.reach = self.l1 + self.l2 + self.l3 + self.l4 +self.l5 + self.l6
+        print("ZASIEG")
+        print(self.reach)
         print('XDXDXDXD')
         #pomyśleć jak zadać wektor podejścia DANE TYMACZASOWE
         self.xt = self.__returnPoints(0,self.data_points)#(0,self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates) #1
@@ -104,48 +106,88 @@ class Compute:
         print("\neksdi\n")
         print(zp)
         print("\nSiup Zium\n")
-        print(len(xp))
-        print('xd64:',xp[64],' yp64:',yp[64])
+        print('xp size: ',len(xp))
+        # print('xp64:',xp[64],' yp64:',yp[64])
 
-        S1 = Window.np.array([0])
-        C1 = Window.np.array([0])
+        S1 = []
+        C1 = []
         for i in range(0,len(xp)):
-            print(i)
-            S1 = Window.np.append(S1,self.__controll((self.e*xp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
-            C1 = Window.np.append(C1,self.__controll((-self.e*yp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
-        S1 = Window.np.delete(S1,0)
-        C1 = Window.np.delete(C1,0)
+            # print(i)
+            S1.append(self.__controll((self.e*xp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
+            C1.append(self.__controll((-self.e*yp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
         print("S1:\n",S1,"\n")
         print("C1:\n",C1,"\n")
 #############Works until here##############################
-        S5 = Window.np.array([0])
-        C5 = Window.np.array([0])
-        S5 = self.__controll(C_theta*(S_psi*C1 - C_psi*S1))
-        C5 = self.__controll(self.delta3 * Window.math.sqrt(1-(S5**2)))
-        S5 = Window.np.delete(S5,0)
-        C5 = Window.np.delete(C5,0)
+        S5 = []
+        C5 = []
+        for i in range(0,len(C1)):
+            S5.append(self.__controll(C_theta*(S_psi*C1[i] - C_psi*S1[i])))
+            C5.append(self.__controll(self.delta3 * Window.math.sqrt(1-(S5[i]**2))))
+        print("S5 size: ",len(S5),)
+        print("C5 size: ",len(C5),'\n')
+        print(S5,'\n')
+        print(C5)
 
-        S234 = self.__controll(S_theta/C5)
-        C234 = self.__controll(C_theta*(C_psi*C1 + S_psi*S1)/C5)
+        S234 = []
+        C234 = []
+        for i in range(0,len(C5)):
+            S234.append(self.__controll(S_theta/C5[i]))
+            C234.append(self.__controll(C_theta*(C_psi*C1[i] + S_psi*S1[i])/C5[i]))
+        print("S234 size: ",len(S234))
+        print("C234 size: ",len(C234))
 
-        xr = xp - self.l4*C1*C234
-        yr = yp - self.l4*S1*C234
-        zr = zp - self.l4*S234
+        xr = []
+        yr = []
+        zr = []
+        for i in range(0,len(C234)):
+            xr.append(xp[i] - self.l4*C1[i]*C234[i])
+            yr.append(yp[i] - self.l4*S1[i]*C234[i])
+            zr.append(zp[i] - self.l4*S234[i])
+        print(xr)
+        print("xr size: ",len(xr))
+        print("yr size: ",len(yr))
+        print("zr size: ",len(zr))
 
-        a = -self.l1+self.delta1*Window.math.sqrt((xr**2)+(yr**2)-self.e**2)
-        b = ((a**2)+(zr**2)+(self.l2**2)-(self.l3**2))/(2*self.l2)
+        a = []
+        b = []
+        for i in range(0,len(xr)):
+            a.append(-self.l1+self.delta1*Window.math.sqrt((xr[i]**2)+(yr[i]**2)-self.e**2))
+            b.append(((a[i]**2)+(zr[i]**2)+(self.l2**2)-(self.l3**2))/(2*self.l2))
+        print("a size: ",len(a))
+        print("b size: ",len(b))
 
-        S2 = self.__controll((zr*b+self.delta2*a*Window.math.sqrt((a**2)+(zr**2)-(b**2)))/((a**2)+(zr**2)))
-        C2 = self.__controll((a*b-self.delta2*zr*Window.math.sqrt((a**2)+(zr**2)-(b**2)))/((a**2)+(zr**2)))
+        S2 = []
+        C2 = []
+        for i in range(0,len(a)):
+            S2.append(self.__controll((zr[i]*b[i]+self.delta2*a[i]*Window.math.sqrt((a[i]**2)+(zr[i]**2)-(b[i]**2)))/((a[i]**2)+(zr[i]**2))))
+            C2.append(self.__controll((a[i]*b[i]-self.delta2*zr[i]*Window.math.sqrt((a[i]**2)+(zr[i]**2)-(b[i]**2)))/((a[i]**2)+(zr[i]**2))))
+        print("S2 size: ",len(S2))
+        print("C2 size: ",len(C2))
 
-        S3 = self.__controll(-self.delta2*Window.math.sqrt((a**2)+(zr**2)-(b**2))/self.l3)
-        C3 = self.__controll(((a**2)+(zr**2)-(self.l2**2)-(self.l3**2))/(2*self.l2*self.l3))
+        S3 = []
+        C3 = []
+        for i in range(0,len(C2)):
+            S3.append(self.__controll(-self.delta2*Window.math.sqrt((a[i]**2)+(zr[i]**2)-(b[i]**2))/self.l3))
+            C3.append(self.__controll(((a[i]**2)+(zr[i]**2)-(self.l2**2)-(self.l3**2))/(2*self.l2*self.l3)))
+        print("S3 size: ",len(S3))
+        print("C3 size: ",len(C3))
 
-        S23 = self.__controll((zr-self.l2*(zr*b+self.delta2*a*Window.math.sqrt((a**2)+(zr**2)-(b**2))/((a**2)+(zr**2))))/self.l3)
-        C23 = self.__controll((a-self.l2*(a*b-self.delta2*zr*Window.math.sqrt((a**2)+(zr**2)-(b**2))/((a**2)+(zr**2))))/self.l3)
 
-        S4 = self.__controll(S234*C23 - C234*S23)
-        C4 = self.__controll(C234*C23 + S234*S23)
+        S23 = []
+        C23 = []
+        for i in range(0,len(C3)):
+            S23.append(self.__controll((zr[i]-self.l2*(zr[i]*b[i]+self.delta2*a[i]*Window.math.sqrt((a[i]**2)+(zr[i]**2)-(b[i]**2))/((a[i]**2)+(zr[i]**2))))/self.l3))
+            C23.append(self.__controll((a[i]-self.l2*(a[i]*b[i]-self.delta2*zr[i]*Window.math.sqrt((a[i]**2)+(zr[i]**2)-(b[i]**2))/((a[i]**2)+(zr[i]**2))))/self.l3))
+        print("S23 size: ",len(S23))
+        print("C23 size: ",len(C23))
+
+        S4 = []
+        C4 = []
+        for i in range(0,len(C23)):
+            S4.append(self.__controll(S234[i]*C23[i] - C234[i]*S23[i]))
+            C4.append(self.__controll(C234[i]*C23[i] + S234[i]*S23[i]))
+        print("S4 size: ",len(S4))
+        print("C4 size: ",len(C4))
 
         #print( self.start_coordinates.size)
         print('raw data')

@@ -33,4 +33,6 @@ C1:
   0.14259751  0.15614327  0.17247211  0.19251678  0.21766573  0.25006817
   0.29320766  0.35303927  0.4403514   0.57565021  0.79650539  1.
   1.          1.          0.84067517] 
+Uwazac na zasieg a podane punkty w przestrzeni,
+gdy zasieg < odległość punktu w przestrzeni od 0 wtedy wyrzucic błąd
 

@@ -173,23 +173,23 @@ class GUI:
         self.route5_label.grid(in_=mainwindow,row=16,column=2)
 
         self.route1_entry = tk.Entry(master)
-        self.route1_entry.insert(0,"1,2,3")
+        self.route1_entry.insert(0,"1,1,1")
         self.route1_entry.grid(in_=mainwindow, row=9, column=2)
 
         self.route2_entry = tk.Entry(master)
-        self.route2_entry.insert(0,"2,2,3")
+        self.route2_entry.insert(0,"0,1,1")
         self.route2_entry.grid(in_=mainwindow, row=11, column=2)
 
         self.route3_entry = tk.Entry(master)
-        self.route3_entry.insert(0,"3,3,3")
+        self.route3_entry.insert(0,"1,0,1")
         self.route3_entry.grid(in_=mainwindow, row=13, column=2)
 
         self.route4_entry = tk.Entry(master)
-        self.route4_entry.insert(0,"3,0,0")
+        self.route4_entry.insert(0,"1,0,0")
         self.route4_entry.grid(in_=mainwindow, row=15, column=2)
 
         self.route5_entry = tk.Entry(master)
-        self.route5_entry.insert(0,"0,0,0")
+        self.route5_entry.insert(0,"0,1,0")
         self.route5_entry.grid(in_=mainwindow, row=17, column=2)
 
 
