@@ -81,7 +81,7 @@ class Compute:
         self.reach = self.l1 + self.l2 + self.l3 + self.l4 +self.l5 + self.l6
         print('XDXDXDXD')
         #pomyśleć jak zadać wektor podejścia DANE TYMACZASOWE
-        self.xt =   self.__returnPoints(0,self.data_points)#(0,self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates) #1
+        self.xt = self.__returnPoints(0,self.data_points)#(0,self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates) #1
         self.yt = self.__returnPoints(1,self.data_points)
         self.zt = self.__returnPoints(2,self.data_points)
 
@@ -103,12 +103,27 @@ class Compute:
         print(yp)
         print("\neksdi\n")
         print(zp)
+        print("\nSiup Zium\n")
+        print(len(xp))
+        print('xd64:',xp[64],' yp64:',yp[64])
 
-        S1 = self.__controll((self.e*xp + self.delta1*yp*Window.math.sqrt((xp**2)+(yp**2)-(self.e **2)))/((xp**2) + (yp**2)))
-        C1 = self.__controll((-self.e*yp + self.delta1*yp*Window.math.sqrt((xp**2)+(yp**2)-(self.e **2)))/((xp**2) + (yp**2)))
-
+        S1 = Window.np.array([0])
+        C1 = Window.np.array([0])
+        for i in range(0,len(xp)):
+            print(i)
+            S1 = Window.np.append(S1,self.__controll((self.e*xp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
+            C1 = Window.np.append(C1,self.__controll((-self.e*yp[i] + self.delta1*yp[i]*Window.math.sqrt((xp[i]**2)+(yp[i]**2)-(self.e **2)))/((xp[i]**2) + (yp[i]**2))))
+        S1 = Window.np.delete(S1,0)
+        C1 = Window.np.delete(C1,0)
+        print("S1:\n",S1,"\n")
+        print("C1:\n",C1,"\n")
+#############Works until here##############################
+        S5 = Window.np.array([0])
+        C5 = Window.np.array([0])
         S5 = self.__controll(C_theta*(S_psi*C1 - C_psi*S1))
         C5 = self.__controll(self.delta3 * Window.math.sqrt(1-(S5**2)))
+        S5 = Window.np.delete(S5,0)
+        C5 = Window.np.delete(C5,0)
 
         S234 = self.__controll(S_theta/C5)
         C234 = self.__controll(C_theta*(C_psi*C1 + S_psi*S1)/C5)
