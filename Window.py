@@ -196,16 +196,16 @@ class GUI:
 
 #######adding plot to tinkter window#############
 
-        f= Figure(figsize=(5,5), dpi=100)
-        a = f.add_subplot(111, projection='3d')
+        self.f= Figure(figsize=(5,5), dpi=100)
+        self.a = self.f.add_subplot(111, projection='3d')
         
 
-        canvas = FigureCanvasTkAgg(f,master)
+        canvas = FigureCanvasTkAgg(self.f,master)
         canvas.get_tk_widget().grid(in_=mainwindow,row=0, column=3, rowspan=30)
         toolbar = NavigationToolbar2Tk(canvas,master)
         toolbar.update()
         canvas._tkcanvas.grid(in_=mainwindow,row=1, column=3)
-        axes3d.Axes3D.mouse_init(a)
+        axes3d.Axes3D.mouse_init(self.a)
         
 
 #########################################
