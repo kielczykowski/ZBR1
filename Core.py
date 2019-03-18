@@ -254,37 +254,52 @@ class Compute:
             ytr.append(ypr[i]+self.l*C_theta*S_psi)
             ztr.append(zpr[i]+self.l*S_theta)
 
+        app.a.clear()
+        app.a2.clear()
+        xd = range(0,10)
+        yd = range(0,10)
+        app.a2.plot(xd,yd)
+
         x = []
         y = []
         z = []
-        # for i in range(34,35):
-        #     x.append(x10[i])
-        #     x.append(x11[i])
-        #     x.append(x21[i])
-        #     x.append(x30[i])
-        #     x.append(xrr[i])
-        #     x.append(xpr[i])
-        #     x.append(xtr[i])
+        for i in range(0,len(x10)):
+            x.append(0)
+            y.append(0)
+            z.append(0)
 
-        #     y.append(y10[i])
-        #     y.append(y11[i])
-        #     y.append(y21[i])
-        #     y.append(y30[i])
-        #     y.append(yrr[i])
-        #     y.append(ypr[i])
-        #     y.append(ytr[i])
+            x.append(x10[i])
+            x.append(x11[i])
+            x.append(x21[i])
+            x.append(x30[i])
+            x.append(xrr[i])
+            x.append(xpr[i])
+            x.append(xtr[i])
 
-        #     z.append(z10[i])
-        #     z.append(z11[i])
-        #     z.append(z21[i])
-        #     z.append(z30[i])
-        #     z.append(zrr[i])
-        #     z.append(zpr[i])
-        #     z.append(ztr[i])
+            y.append(y10[i])
+            y.append(y11[i])
+            y.append(y21[i])
+            y.append(y30[i])
+            y.append(yrr[i])
+            y.append(ypr[i])
+            y.append(ytr[i])
 
-        app.a.clear()
-        app.a.plot(self.xt,self.yt,self.zt)
-        app.a.plot(xtr,ytr,ztr)
+            z.append(z10[i])
+            z.append(z11[i])
+            z.append(z21[i])
+            z.append(z30[i])
+            z.append(zrr[i])
+            z.append(zpr[i])
+            z.append(ztr[i])
+
+            app.a.clear()
+            app.a.plot(self.xt,self.yt,self.zt)
+            app.a.plot(x,y,z)
+            app.f.canvas.draw()
+            x = []
+            y = []
+            z = []
+        
         print(self.data_points)
         print(self.xt)
         print(self.yt)

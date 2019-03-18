@@ -18,7 +18,7 @@ class GUI:
         self.master = master
         self.master.title("ZASADY BUDOWY ROBOTÓW: Projekt 1")
         master.geometry("1000x620")
-        master.resizable(False,False)
+        #master.resizable(False,False)
         self.style= tk.ttk.Style()
         self.style.theme_use("clam")
         #self.style.configure("TCombobox", foreground="black", background="blue")
@@ -127,77 +127,78 @@ class GUI:
         self.d3.grid(in_=mainwindow, row=13, column=1)
 
 ######################second data collumn#####################
-        self.coordinates_label = Label(master,text="Współrzędne maszynowe")
-        self.coordinates_label.grid(in_=mainwindow,row=0,column=2,pady=10)
+        # self.coordinates_label = Label(master,text="Współrzędne maszynowe")
+        # self.coordinates_label.grid(in_=mainwindow,row=0,column=2,pady=10)
 
-        self.fi1= tk.StringVar()
-        self.fi2= tk.StringVar()
-        self.fi3= tk.StringVar()
-        self.fi4= tk.StringVar()
-        self.fi5 = tk.StringVar()
+        # self.fi1= tk.StringVar()
+        # self.fi2= tk.StringVar()
+        # self.fi3= tk.StringVar()
+        # self.fi4= tk.StringVar()
+        # self.fi5 = tk.StringVar()
 
-        self.fi1.set("fi1 =")
-        self.fi2.set("fi2 =")
-        self.fi3.set("fi3 =")
-        self.fi4.set("fi4 =")
-        self.fi5.set("fi5 =")
+        # self.fi1.set("fi1 =")
+        # self.fi2.set("fi2 =")
+        # self.fi3.set("fi3 =")
+        # self.fi4.set("fi4 =")
+        # self.fi5.set("fi5 =")
 
-        self.fi1_label = Label(master,textvariable=self.fi1)
-        self.fi2_label = Label(master,textvariable=self.fi2)
-        self.fi3_label = Label(master,textvariable=self.fi3)
-        self.fi4_label = Label(master,textvariable=self.fi4)
-        self.fi5_label = Label(master,textvariable=self.fi5)
+        # self.fi1_label = Label(master,textvariable=self.fi1)
+        # self.fi2_label = Label(master,textvariable=self.fi2)
+        # self.fi3_label = Label(master,textvariable=self.fi3)
+        # self.fi4_label = Label(master,textvariable=self.fi4)
+        # self.fi5_label = Label(master,textvariable=self.fi5)
 
-        self.fi1_label.grid(in_=mainwindow,row=1, column=2)
-        self.fi2_label.grid(in_=mainwindow,row=2, column=2)
-        self.fi3_label.grid(in_=mainwindow,row=3, column=2)
-        self.fi4_label.grid(in_=mainwindow,row=4, column=2)
-        self.fi5_label.grid(in_=mainwindow,row=5, column=2)
+        # self.fi1_label.grid(in_=mainwindow,row=1, column=2)
+        # self.fi2_label.grid(in_=mainwindow,row=2, column=2)
+        # self.fi3_label.grid(in_=mainwindow,row=3, column=2)
+        # self.fi4_label.grid(in_=mainwindow,row=4, column=2)
+        # self.fi5_label.grid(in_=mainwindow,row=5, column=2)
 
         self.route_label = Label(master,text="   Parametry toru ruchu\n(Współrzędne Postaci: 'x,y,z')",)
-        self.route_label.grid(in_=mainwindow,row=6,column=2,pady=10,rowspan=2)
+        self.route_label.grid(in_=mainwindow,row=0,column=2,pady=10,rowspan=2)
 
         self.route1_label = Label(master,text="Współrzędne punktu startowego")
-        self.route1_label.grid(in_=mainwindow,row=8,column=2)
+        self.route1_label.grid(in_=mainwindow,row=2,column=2)
 
         self.route2_label = Label(master,text="Współrzędne punktu przejścia1")
-        self.route2_label.grid(in_=mainwindow,row=10,column=2)
+        self.route2_label.grid(in_=mainwindow,row=4,column=2)
 
         self.route3_label = Label(master,text="Współrzędne punktu przejścia2")
-        self.route3_label.grid(in_=mainwindow,row=12,column=2)
+        self.route3_label.grid(in_=mainwindow,row=6,column=2)
 
         self.route4_label = Label(master,text="Współrzędne punktu przejścia3")
-        self.route4_label.grid(in_=mainwindow,row=14,column=2)
+        self.route4_label.grid(in_=mainwindow,row=8,column=2)
 
         self.route5_label = Label(master,text="Współrzędne punktu końcowego")
-        self.route5_label.grid(in_=mainwindow,row=16,column=2)
+        self.route5_label.grid(in_=mainwindow,row=10,column=2)
 
         self.route1_entry = tk.Entry(master)
         self.route1_entry.insert(0,"1,1,1")
-        self.route1_entry.grid(in_=mainwindow, row=9, column=2)
+        self.route1_entry.grid(in_=mainwindow, row=3, column=2)
 
         self.route2_entry = tk.Entry(master)
         self.route2_entry.insert(0,"0,1,1")
-        self.route2_entry.grid(in_=mainwindow, row=11, column=2)
+        self.route2_entry.grid(in_=mainwindow, row=5, column=2)
 
         self.route3_entry = tk.Entry(master)
         self.route3_entry.insert(0,"1,0,1")
-        self.route3_entry.grid(in_=mainwindow, row=13, column=2)
+        self.route3_entry.grid(in_=mainwindow, row=7, column=2)
 
         self.route4_entry = tk.Entry(master)
         self.route4_entry.insert(0,"1,0,0")
-        self.route4_entry.grid(in_=mainwindow, row=15, column=2)
+        self.route4_entry.grid(in_=mainwindow, row=9, column=2)
 
         self.route5_entry = tk.Entry(master)
         self.route5_entry.insert(0,"0,1,0")
-        self.route5_entry.grid(in_=mainwindow, row=17, column=2)
+        self.route5_entry.grid(in_=mainwindow, row=11, column=2)
 
 
 
 #######adding plot to tinkter window#############
 
-        self.f= Figure(figsize=(5,5), dpi=100)
-        self.a = self.f.add_subplot(111, projection='3d')
+        self.f= Figure(figsize=(5,8), dpi=100)
+        self.a = self.f.add_subplot(211, projection='3d')
+        self.a2 = self.f.add_subplot(212)
         
 
         canvas = FigureCanvasTkAgg(self.f,master)
