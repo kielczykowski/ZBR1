@@ -17,8 +17,8 @@ class GUI:
     def __init__(self,master):
         self.master = master
         self.master.title("ZASADY BUDOWY ROBOTÓW: Projekt 1")
-        master.geometry("1000x620")
-        #master.resizable(False,False)
+        master.geometry("1000x950")
+        master.resizable(False,False)
         self.style= tk.ttk.Style()
         self.style.theme_use("clam")
         #self.style.configure("TCombobox", foreground="black", background="blue")
