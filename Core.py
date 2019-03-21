@@ -22,7 +22,7 @@ class Compute:
         n2 = round(resolution*self.__distance(P2,P3))
         n3 = round(resolution*self.__distance(P3,P4))
         n4 = round(resolution*self.__distance(P4,P5))
-        print(n1)
+      # print(n1)
 
         t1 = Window.np.linspace(0,1,n1)
         t1 = Window.np.delete(t1,0)
@@ -32,9 +32,9 @@ class Compute:
         t3 = Window.np.delete(t3,0)
         t4 = Window.np.linspace(0,1,n4)
         t4 = Window.np.delete(t4,0)
-        print(t1)
+       # print(t1)
         trajectory = Window.np.array([P1])
-        print(trajectory)
+       # print(trajectory)
         for tx in t1:
             trajectory = Window.np.vstack((trajectory,P1 + tx*Window.np.subtract(P2,P1))) #??????????????
         for tx in t2:
@@ -44,7 +44,7 @@ class Compute:
         for tx in t4:
             trajectory = Window.np.vstack((trajectory,P4 + tx*Window.np.subtract(P5,P4)))    
         #P1_2=Window.np.delete(trajectory,0,0)
-        print(trajectory)
+        #print(trajectory)
         return trajectory
 
     
@@ -54,7 +54,7 @@ class Compute:
         for point in args:
             for i in range(0,point.shape[0]):
                 points.append(point[i][index])
-        print(points)
+        #print(points)
         return points
 
     def __fiarg(self,S,C):
@@ -74,6 +74,12 @@ class Compute:
             else:
                 fi.append(1*deg)
         return fi
+    
+    def __boundCheck(self,xt,yt,zt):
+        for i in range(0,len(self.data_points)):
+            if self.__distance([xt[i],yt[i],zt[i]],self.data_points[i]) > self.error:
+                return 1
+        
 
     def compute(self,app):
         self.raw_data =app.retData()
@@ -95,11 +101,28 @@ class Compute:
         self.passage_coordinates2 = self.raw_data[15]
         self.passage_coordinates3 = self.raw_data[16]
         self.end_coordinates = self.raw_data[17]
+        self.resolution = self.raw_data[18]
+        self.error = self.raw_data[19]
 
-        self.data_points=self.__trajectory(self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates)
+        self.data_points=self.__trajectory(self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates, self.resolution)
+        print(len(self.data_points))
 
         self.l = self.l5 + self.l6
         self.reach = self.l1 + self.l2 + self.l3 + self.l4 +self.l5 + self.l6
+
+        # for i in range(13,18):
+        #     for x in range(i,18):
+        #         if i == x:
+        #             pass
+        #         if self.raw_data[x][0] == self.raw_data[i][0]:
+        #             Window.tk.messagebox.showerror("Error","Powtórzone dwa kolejne punkty trajektorii. Musisz podać punkty różniące się od siebie.")
+        #             return
+                    
+        
+        for t in self.data_points:
+            if self.__distance([0,0,0],t) > self.reach:
+                Window.tk.messagebox.showerror("Error","Robot nie jest w stanie dojechać do zadanej trajektorii (punkty zadane zbyt daleko od początku robota)")
+                return
 
         self.xt = self.__returnPoints(0,self.data_points)#(0,self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates) #1
         self.yt = self.__returnPoints(1,self.data_points)
@@ -225,7 +248,12 @@ class Compute:
             ytr.append(ypr[i]+self.l*C_theta*S_psi)
             ztr.append(zpr[i]+self.l*S_theta)
 
+        if self.__boundCheck(xtr,ytr,ztr) == 1:
+            Window.tk.messagebox.showerror("Error","Człon Robota jest zbyt duży, przez co nigdy nie osiągnie trajektorii.\nZmniejsz rozmiar członu.")
+            return
+            
 
+        print(len(xtr))
         self.fi1 = self.__fiarg(S1,C1)
         self.fi2 = self.__fiarg(S2,C2)
         self.fi3 = self.__fiarg(S3,C3)
@@ -242,6 +270,9 @@ class Compute:
         app.a2.plot(xfi,self.fi3)
         app.a2.plot(xfi,self.fi4)
         app.a2.plot(xfi,self.fi5)
+        app.a2.legend(["fi1","fi2","fi3","fi4","fi5"])
+        app.a2.set_ylabel("Wartość współrzędnej maszynowej [deg]")
+        app.a2.set_xlabel("Punkt symulacji")
 
         x = []
         y = []
@@ -279,6 +310,10 @@ class Compute:
             app.a.plot(self.xt,self.yt,self.zt)
             app.a.plot(xtr,ytr,ztr)
             app.a.plot(x,y,z)
+            app.a.set_xlabel("x")
+            app.a.set_ylabel("y")
+            app.a.set_zlabel("z")
+            app.a.legend(["Trajektoria Zadana","Trajektoria Realizowana","Ramię Robota"])
             app.f.canvas.draw()
             x = []
             y = []

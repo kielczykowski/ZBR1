@@ -18,7 +18,7 @@ class GUI:
         self.master = master
         self.master.title("ZASADY BUDOWY ROBOTÓW: Projekt 1")
         master.geometry("1000x950")
-        master.resizable(False,False)
+        #master.resizable(False,False)
         self.style= tk.ttk.Style()
         self.style.theme_use("clam")
         #self.style.configure("TCombobox", foreground="black", background="blue")
@@ -66,7 +66,7 @@ class GUI:
         self.inl4 = tk.Label(text="l4[m]")
         self.inl4.grid(in_=mainwindow,row=4, column=0, sticky="e")
         self.enl4 = tk.Entry(master)
-        self.enl4.insert(0,'0.7')
+        self.enl4.insert(0,'0.4')
         self.enl4.grid(in_=mainwindow, row=4, column=1)
 
         self.inl5 = tk.Label(text="l5[m]")
@@ -93,13 +93,13 @@ class GUI:
         self.enl8.insert(0,'0.1')
         self.enl8.grid(in_=mainwindow, row=8, column=1)
 
-        self.inl9 = tk.Label(text="theta [st]")
+        self.inl9 = tk.Label(text="theta [deg]")
         self.inl9.grid(in_=mainwindow,row=9, column=0, sticky="e")
         self.enl9 = tk.Entry(master)
         self.enl9.insert(0,'30')
         self.enl9.grid(in_=mainwindow, row=9, column=1)
 
-        self.inl10 = tk.Label(text="psi [st]")
+        self.inl10 = tk.Label(text="psi [deg]")
         self.inl10.grid(in_=mainwindow,row=10, column=0, sticky="e")
         self.enl10 = tk.Entry(master)
         self.enl10.insert(0,'40')
@@ -172,6 +172,12 @@ class GUI:
         self.route5_label = Label(master,text="Współrzędne punktu końcowego")
         self.route5_label.grid(in_=mainwindow,row=10,column=2)
 
+        self.route5_label = Label(master,text="Rozdzielczość symulacji")
+        self.route5_label.grid(in_=mainwindow,row=15,column=2)
+
+        self.route5_label = Label(master,text="Błąd trajektorii robota od \ntrajektorii zadanej [m]")
+        self.route5_label.grid(in_=mainwindow,row=17,column=2,rowspan=2)
+
         self.route1_entry = tk.Entry(master)
         self.route1_entry.insert(0,"1,1,1")
         self.route1_entry.grid(in_=mainwindow, row=3, column=2)
@@ -192,6 +198,14 @@ class GUI:
         self.route5_entry.insert(0,"0,1,0")
         self.route5_entry.grid(in_=mainwindow, row=11, column=2)
 
+        self.route6_entry = tk.Entry(master)
+        self.route6_entry.insert(0,"10")
+        self.route6_entry.grid(in_=mainwindow, row=16, column=2)
+
+        self.route7_entry = tk.Entry(master)
+        self.route7_entry.insert(0,"0.1")
+        self.route7_entry.grid(in_=mainwindow, row=19, column=2)
+
 
 
 #######adding plot to tinkter window#############
@@ -199,6 +213,13 @@ class GUI:
         self.f= Figure(figsize=(5,8), dpi=100)
         self.a = self.f.add_subplot(211, projection='3d')
         self.a2 = self.f.add_subplot(212)
+
+        self.a.set_xlabel("x")
+        self.a.set_ylabel("y")
+        self.a.set_zlabel("z")
+
+        self.a2.set_ylabel("Wartość współrzędnej maszynowej [deg]")
+        self.a2.set_xlabel("Punkt symulacji")
         
 
         canvas = FigureCanvasTkAgg(self.f,master)
@@ -207,6 +228,8 @@ class GUI:
         toolbar.update()
         canvas._tkcanvas.grid(in_=mainwindow,row=1, column=3)
         axes3d.Axes3D.mouse_init(self.a)
+
+        
         
 
 #########################################
@@ -225,7 +248,7 @@ class GUI:
         return matrix
 
     def retData(self):
-            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data, self.d1_data, self.d2_data,self.d3_data, self.route1_entry_data, self.route2_entry_data, self.route3_entry_data, self.route4_entry_data, self.route5_entry_data )
+            return (self.enl1_data, self.enl2_data,  self.enl3_data, self.enl4_data, self.enl5_data, self.enl6_data, self.enl7_data ,self.enl8_data, self.enl9_data, self.enl10_data, self.d1_data, self.d2_data,self.d3_data, self.route1_entry_data, self.route2_entry_data, self.route3_entry_data, self.route4_entry_data, self.route5_entry_data, self.route6_entry_data, self.route7_entry_data )
 
 
 
@@ -244,6 +267,8 @@ class GUI:
                 self.d1_data = float(self.d1.get())
                 self.d2_data = float(self.d2.get())
                 self.d3_data = float(self.d3.get())
+                self.route6_entry_data = float(self.route6_entry.get())
+                self.route7_entry_data = float(self.route7_entry.get())
         except ValueError:
                 tk.messagebox.showerror("Error","Nieprawidłowa wartość wejściowa!\n Dane musza być liczbami")
                 return None
@@ -269,7 +294,7 @@ class GUI:
 
 
        
-if __name__ == "__main__":
-        root = tk.Tk()
-        gui = GUI(root)
-        root.mainloop()
+# if __name__ == "__main__":
+#         root = tk.Tk()
+#         gui = GUI(root)
+#         root.mainloop()

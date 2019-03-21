@@ -5,6 +5,9 @@ lib64/
 __pycache__/
 share/
 .vscode/
+dist/
+build/
+build/Core/base_library.zip
 
 52872284_372786959978085_3181783219657768960_n.png
 52945566_533694683785568_3328558736246571008_n.jpg
@@ -17,4 +20,5 @@ requirements.txt
 
 *.cfg
 *.jpg
-
+*.pyc
+*.png
