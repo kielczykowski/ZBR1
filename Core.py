@@ -104,8 +104,16 @@ class Compute:
         self.resolution = self.raw_data[18]
         self.error = self.raw_data[19]
 
+        if self.resolution <= 1:
+            Window.tk.messagebox.showerror("Error","Rozdzielczość nie może być mniejsza, bądź równa 1(nie wyznaczy punktów trajektorii)")
+            return
+        if self.error <= 0:
+            Window.tk.messagebox.showerror("Error","Błąd nie może być mniejszy lub równy0 [m]. Proszę podać inną wartość")
+            return
+
+
         self.data_points=self.__trajectory(self.start_coordinates,self.passage_coordinates1,self.passage_coordinates2,self.passage_coordinates3,self.end_coordinates, self.resolution)
-        print(len(self.data_points))
+        #print(len(self.data_points))
 
         self.l = self.l5 + self.l6
         self.reach = self.l1 + self.l2 + self.l3 + self.l4 +self.l5 + self.l6
@@ -253,7 +261,7 @@ class Compute:
             return
             
 
-        print(len(xtr))
+       # print(len(xtr))
         self.fi1 = self.__fiarg(S1,C1)
         self.fi2 = self.__fiarg(S2,C2)
         self.fi3 = self.__fiarg(S3,C3)
